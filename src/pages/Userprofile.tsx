@@ -36,7 +36,7 @@ export default function Userprofile() {
           <div className='grow'></div>
 
           <Link
-            to={'/home'}
+            to={'/Summary'}
             className='px-4 p-2 h-max w-max rounded-full bg-pink-500 text-white font-semibold duration-150 hover:bg-pink-500 hover:scale-105 active:scale-95'
           >
             pdf summary
