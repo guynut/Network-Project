@@ -51,7 +51,8 @@ export default function Login() {
   const isFormValid = formData.username.trim() !== '' && formData.password.trim() !== '';
 
   return (
-    <div className='w-full h-full flex justify-center items-center bg-gradient-to-tr from-blue-900 via-blue-500 to-blue-600'>
+    <div className='w-full h-full flex flex-col gap-4 justify-center items-center bg-gradient-to-tr from-blue-900 via-blue-500 to-blue-600'>
+      <h1 className='text-6xl text-white'> AI PDF Summarizer </h1>
       <div className='w-[30vw] h-auto backdrop-blur-sm bg-white bg-opacity-90 rounded-xl flex flex-col gap-2 items-center justify-self-start border border-neutral-100 p-4'>
         <h2 className='text-4xl'>Login</h2>
         <form className='w-full flex flex-col gap-2 justify-center items-center'>
