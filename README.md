@@ -3,8 +3,9 @@
 
 ## router
 ```
-/
-/home
+Login page       =>  /
+user page        =>  /userprofile
+pdf summary page =>  /Summary
 ```
 
 import library
