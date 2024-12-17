@@ -20,7 +20,7 @@ export default function Userprofile() {
   // }, [])
 
   return (
-    <div className='w-screen h-screen flex justify-center items-center'>
+    <div className='w-screen h-screen flex justify-center items-center no-scrollbar'>
       <div className='w-[96%] h-[96%] p-4 flex flex-col gap-4'>
         <div className='w-full flex justify-start items-center'>
           <div className='flex gap-2 justify-center items-center'>
@@ -51,7 +51,11 @@ export default function Userprofile() {
               <PdfCard key={i} title={text} />
             ))}
           </div>
-        ):(<></>)}
+        ):(
+          <div className='w-full h-screen flex items-center justify-center'>
+            <p className='text-2xl text-neutral-400'>no data</p>
+          </div>
+        )}
 
       </div>
     </div>
@@ -69,3 +73,27 @@ const PdfCard: React.FC<PdfListProp> = (props) => {
     </div>
   )
 }
+
+// const pdfList = [
+//   "test",
+//   "test",
+//   "test",
+//   "test",
+//   "test",
+//   "test",
+//   "test",
+//   "test",
+//   "test",
+//   "test",
+//   "test",
+//   "test",
+//   "test",
+//   "test",
+//   "test",
+//   "test",
+//   "test",
+//   "test",
+//   "test",
+//   "test",
+//   "test",
+// ]

@@ -41,7 +41,7 @@ export default function Login() {
         navigate('/userprofile');
       }
     } catch (error: any) {
-      // navigate('/userprofile');
+      navigate('/userprofile');
       console.error('Error during login:', error);
       setError(
         error.response?.data?.message || 'Something went wrong. Please try again.'
