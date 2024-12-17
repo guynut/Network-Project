@@ -31,16 +31,17 @@ export default function Login() {
 
     try {
       const response = await axios.post<LoginResponse>(
-        import.meta.env.VITE_API_URL_Auth,
+        '/',
         formData,
         { headers: { 'Content-Type': 'application/json' } }
       );
 
       if (response.status === 200) {
         console.log('Login successful:', response.data);
-        navigate('/home');
+        navigate('/userprofile');
       }
     } catch (error: any) {
+      // navigate('/userprofile');
       console.error('Error during login:', error);
       setError(
         error.response?.data?.message || 'Something went wrong. Please try again.'

@@ -5,6 +5,7 @@ import { FaCat } from "react-icons/fa6";
 
 import { Worker, Viewer } from '@react-pdf-viewer/core';
 import '@react-pdf-viewer/core/lib/styles/index.css';
+import { Link } from 'react-router-dom';
 
 const pdfWorkerUrl = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js`;
 
@@ -39,7 +40,7 @@ export default function Home() {
 
       try {
         const res = await axios.post(
-          'http://localhost:3000/api/upload',
+          '/',
           formData,
         )
         console.log('File uploaded successfully:', res.data);
@@ -75,6 +76,12 @@ export default function Home() {
             <p className='text-xl'>Username</p>
             <p className='text-lg'>email</p>
           </div>
+          <Link
+            to={'/userprofile'}
+            className='px-4 p-2 rounded-full bg-neutral-200 text-neutral-600 duration-150 hover:bg-pink-500 hover:text-white active:scale-95'
+          >
+            view your file
+            </Link>
         </div>
       </div>
 

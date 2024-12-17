@@ -2,6 +2,7 @@ import { Outlet, createBrowserRouter } from 'react-router-dom'
 import MainLayout from '../layout/MainLayout'
 import Home from '../pages/Home'
 import Login from '../pages/Login'
+import Userprofile from '../pages/Userprofile'
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +18,14 @@ export const router = createBrowserRouter([
     element: (
       <MainLayout>
         <Home />
+      </MainLayout>
+    ),
+  },
+  {
+    path: '/userprofile',
+    element: (
+      <MainLayout>
+        <Userprofile />
       </MainLayout>
     ),
   },
