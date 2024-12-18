@@ -27,18 +27,32 @@ export default function Summary() {
       setUploading(true);
       const formData = new FormData();
       formData.append("pdf_file", file);
-      formData.append("pdf_name", "My PDF File");
-      formData.append("user_id", "1");
-      formData.append("summary", "This is a sample summary");
 
       try {
-        const res = await axios.post("http://localhost:4000/pdf/storePDF", formData);
-        console.log("File uploaded successfully:", res.data);
-        setSummary("Upload complete!");
+        const res = await axios.post(
+          'http://localhost:8000/summary',
+          formData,{
+            headers: {
+              "Content-Type": "multipart/form-data", // Axios will set this automatically for FormData
+            }
+          }
+        )
+
+        formData.append("pdf_name", "My PDF File");
+        formData.append("user_id", "0");
+        formData.append("summary", res.data.summary);
+        
+        try {
+          const res = await axios.post("http://localhost:4000/pdf/storePDF", formData);
+          console.log("File uploaded successfully:", res.data);
+          setSummary(res.data.summary);
+        } catch (error) {
+          console.error("Error uploading file:", error);
+        } finally {
+          setUploading(false);
+        }
       } catch (error) {
         console.error("Error uploading file:", error);
-      } finally {
-        setUploading(false);
       }
     }
   };

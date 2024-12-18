@@ -6,6 +6,7 @@ type PdfItem = {
   pdf_id: number;
   pdf_name: string;
   pdf_file: string;
+  summary: string;
 };
 
 export default function Userprofile() {
@@ -54,7 +55,7 @@ export default function Userprofile() {
         {pdfList ? (
           <div className="mt-1 w-full flex flex-wrap gap-1">
             {pdfList.map((pdf, i) => (
-              <PdfCard key={i} title={pdf.pdf_name} />
+              <PdfCard key={i} title={pdf.pdf_name} summary={pdf.summary} />
             ))}
           </div>
         ) : (
@@ -69,12 +70,18 @@ export default function Userprofile() {
 
 type PdfListProp = {
   title: string;
+  summary: string;
 };
 
 const PdfCard: React.FC<PdfListProp> = (props) => {
   return (
-    <div className="w-full h-20 rounded-xl bg-neutral-100 p-4 flex">
-      <p>{props.title}</p>
+    <>
+    <div className="w-full rounded-xl bg-neutral-100 p-4 flex-row">
+      <div><b>{props.title}</b></div>
+      <div>
+        <p>{props.summary}</p>
+      </div>
     </div>
+    </>
   );
 };
