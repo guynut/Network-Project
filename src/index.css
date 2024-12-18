@@ -13,7 +13,7 @@
 }
 
 :root {
-  font-family: 'Prompt', Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Prompt", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
