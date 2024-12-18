@@ -1,10 +1,9 @@
-import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
-import { FaFilePdf } from "react-icons/fa6";
-import { FaCat } from "react-icons/fa6";
-
+import axios from "axios";
 import { Worker, Viewer } from "@react-pdf-viewer/core";
 import "@react-pdf-viewer/core/lib/styles/index.css";
+import { FaFilePdf } from "react-icons/fa6";
+import { FaCat } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
 const pdfWorkerUrl = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js`;
@@ -14,17 +13,10 @@ export default function Summary() {
 
   const [uploading, setUploading] = useState(false);
   const [fileURL, setFileURL] = useState<string>("");
-
-  const [summary, setSummary] = useState<string>("Hi gay..");
-
-  useEffect(() => {
-    console.log("uploading ", uploading);
-  }, [uploading]);
+  const [summary, setSummary] = useState<string>(""); 
 
   const handleFileChange = async () => {
     const file = inputFileRef.current?.files?.[0];
-    console.log(file);
-
     if (file) {
       const fileReader = new FileReader();
       fileReader.onloadend = () => {
@@ -34,31 +26,23 @@ export default function Summary() {
 
       setUploading(true);
       const formData = new FormData();
-      formData.append("file", file);
+      formData.append("pdf_file", file);
+      formData.append("pdf_name", "My PDF File");
+      formData.append("user_id", "1");
+      formData.append("summary", "This is a sample summary");
 
       try {
-        const res = await axios.post(
-          "http://localhost:8080/summary",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data", // Axios will set this automatically for FormData
-            },
-          },
-        );
+        const res = await axios.post("http://localhost:4000/pdf/storePDF", formData);
         console.log("File uploaded successfully:", res.data);
-        setSummary(res.data);
+        setSummary("Upload complete!");
       } catch (error) {
-        console.error("Error uploading file: ", error);
+        console.error("Error uploading file:", error);
       } finally {
-        setTimeout(() => {
-          setUploading(false);
-        }, 1000);
+        setUploading(false);
       }
     }
   };
 
-  // upload pdf file
   useEffect(() => {
     const inputFileElement = inputFileRef.current;
     inputFileElement?.addEventListener("change", handleFileChange);
@@ -73,7 +57,7 @@ export default function Summary() {
       <div className="w-full flex justify-start">
         <div className="flex gap-2 justify-center items-center">
           <div className="w-10 h-10 rounded-full overflow-hidden">
-            <img src="/public/github-logo.jpg" />
+            <img src="/public/github-logo.jpg" alt="Profile" />
           </div>
           <div>
             <p className="text-xl">Username</p>
@@ -83,14 +67,14 @@ export default function Summary() {
             to={"/userprofile"}
             className="px-4 p-2 rounded-full bg-neutral-200 text-neutral-600 duration-150 hover:bg-pink-500 hover:text-white active:scale-95"
           >
-            view your file
+            View Your Files
           </Link>
         </div>
       </div>
 
       <div className="w-[98%] h-[90%] flex gap-4">
         <div className="w-[49%] h-full rounded-xl p-2 bg-neutral-100 flex flex-col gap-4 justify-start items-center">
-          <p className="text-2xl"> Input Your file </p>
+          <p className="text-2xl"> Input Your File </p>
 
           {fileURL ? (
             <div className="p-2 w-full h-full overflow-scroll no-scrollbar rounded-xl">
@@ -102,24 +86,22 @@ export default function Summary() {
             <div className="w-full grow flex justify-center items-center">
               <div className="w-max p-4 rounded-2xl bg-neutral-200">
                 <input
-                  className=" hidden"
+                  className="hidden"
                   type="file"
                   name="pdfInput"
                   id="pdfInput"
                   accept=".pdf"
                   ref={inputFileRef}
                 />
-                <>
-                  <label
-                    className="peer cursor-pointer text-neutral-400 rounded-xl p-1 px-3 transition-all hover:bg-main-green hover:text-pink-600"
-                    htmlFor="pdfInput"
-                  >
-                    <div className="flex flex-col justify-center items-center gap-1">
-                      <FaFilePdf className="text-5xl" />
-                      Choose Pdf file
-                    </div>
-                  </label>
-                </>
+                <label
+                  className="peer cursor-pointer text-neutral-400 rounded-xl p-1 px-3 transition-all hover:bg-main-green hover:text-pink-600"
+                  htmlFor="pdfInput"
+                >
+                  <div className="flex flex-col justify-center items-center gap-1">
+                    <FaFilePdf className="text-5xl" />
+                    Choose PDF File
+                  </div>
+                </label>
               </div>
             </div>
           )}
@@ -128,17 +110,17 @@ export default function Summary() {
         <div className="w-[1px] h-full bg-white"></div>
 
         <div className="w-[49%] h-full rounded-xl p-2 bg-neutral-100 flex flex-col justify-start items-center">
-          <p className="text-2xl"> Summary of this file </p>
+          <p className="text-2xl"> Summary of This File </p>
           <div className="w-full grow p-4">
             {uploading ? (
               <div className="w-full h-full flex flex-col justify-center items-center">
                 <FaCat className="text-8xl animate-bounce text-pink-600" />
-                <p className="animate-pulse">waiting for summary...</p>
+                <p className="animate-pulse">Waiting for summary...</p>
               </div>
             ) : fileURL ? (
               <p>{summary}</p>
             ) : (
-              <p></p>
+              <p>Select a file to view its summary</p>
             )}
           </div>
         </div>
