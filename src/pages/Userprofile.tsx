@@ -2,21 +2,28 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+type PdfItem = {
+  pdf_id: number;
+  pdf_name: string;
+  pdf_file: string;
+};
+
 export default function Userprofile() {
-  const [pdfList, setPdfList] = useState<string[] | null>();
+  const [pdfList, setPdfList] = useState<PdfItem[] | null>(null);
 
-  // const getPdfList = async () => {
-  //   try {
-  //     const response = await axios.get('/');
-  //     setPdfList(response.data);
-  //   } catch (error) {
-  //     console.error('Error fetching PDF list:', error);
-  //   }
-  // }
+  const getPdfList = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/pdf/getall');
+      console.log('PDF List:', response.data); // ตรวจสอบข้อมูลที่ได้รับ
+      setPdfList(response.data);
+    } catch (error) {
+      console.error('Error fetching PDF list:', error);
+    }
+  };
 
-  // useEffect(() => {
-  //   getPdfList();
-  // }, [])
+  useEffect(() => {
+    getPdfList();
+  }, []);
 
   return (
     <div className="w-screen h-screen flex justify-center items-center no-scrollbar">
@@ -46,8 +53,8 @@ export default function Userprofile() {
 
         {pdfList ? (
           <div className="mt-1 w-full flex flex-wrap gap-1">
-            {pdfList.map((text, i) => (
-              <PdfCard key={i} title={text} />
+            {pdfList.map((pdf, i) => (
+              <PdfCard key={i} title={pdf.pdf_name} />
             ))}
           </div>
         ) : (
@@ -71,27 +78,3 @@ const PdfCard: React.FC<PdfListProp> = (props) => {
     </div>
   );
 };
-
-// const pdfList = [
-//   "test",
-//   "test",
-//   "test",
-//   "test",
-//   "test",
-//   "test",
-//   "test",
-//   "test",
-//   "test",
-//   "test",
-//   "test",
-//   "test",
-//   "test",
-//   "test",
-//   "test",
-//   "test",
-//   "test",
-//   "test",
-//   "test",
-//   "test",
-//   "test",
-// ]
