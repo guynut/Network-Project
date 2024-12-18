@@ -37,9 +37,16 @@ export default function Summary() {
       formData.append("file", file);
 
       try {
-        const res = await axios.post("/", formData);
-        console.log("File uploaded successfully:", res.data);
-        setSummary(res.data);
+        const res = await axios.post(
+          'http://localhost:8080/summary',
+          formData,{
+            headers: {
+              "Content-Type": "multipart/form-data", // Axios will set this automatically for FormData
+            }
+          }
+        )
+        console.log('File uploaded successfully:', res.data);
+        setSummary(res.data)
       } catch (error) {
         console.error("Error uploading file: ", error);
       } finally {
