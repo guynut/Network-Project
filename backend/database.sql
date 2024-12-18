@@ -2,6 +2,7 @@ create table users (
 	user_id serial primary key,
 	username varchar unique,
 	password varchar ,
+    email varchar unique,
 	created timestamptz default current_timestamp
 )
 
