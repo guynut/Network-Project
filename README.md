@@ -21,3 +21,8 @@ run web in dev mode
 ```
 npm run dev
 ```
+
+please run to make code readable
+```
+npx prettier . --write
+```
