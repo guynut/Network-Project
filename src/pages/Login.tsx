@@ -31,16 +31,17 @@ export default function Login() {
     setError(null);
 
     try {
-      const response = await axios.post<LoginResponse>("/", formData, {
+      const response = await axios.post<LoginResponse>("http://localhost:4000/login", formData, {
         headers: { "Content-Type": "application/json" },
       });
+
 
       if (response.status === 200) {
         console.log("Login successful:", response.data);
         navigate("/userprofile");
       }
     } catch (error: any) {
-      navigate("/userprofile");
+      // navigate("/userprofile");
       console.error("Error during login:", error);
       setError(
         error.response?.data?.message ||
