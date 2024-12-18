@@ -21,7 +21,6 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
-
 // const result = await pool.query(
 //   "INSERT INTO pdf_lists (pdf_name, pdf_file, user_id, summary) VALUES ($1, $2, $3, $4) RETURNING *",
 //   [pdf_name, pdf_file, user_id, summary],
@@ -45,7 +44,6 @@ app.all("/login", async (req, res) => {
       }
     }
     return res.status(400).json({ message: "Invalid Credentials" });
-  
   } catch (error) {
     console.error(error.message);
 

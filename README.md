@@ -23,6 +23,7 @@ npm run dev
 ```
 
 please run to make code readable
+
 ```
 npx prettier . --write
 ```
